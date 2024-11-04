@@ -7,7 +7,7 @@ one:
   description: MyText
   origin: MyString
   variety: MyString
-  categorie: MyString
+  category: MyString
   quantity: 1
 
 two:
@@ -17,5 +17,5 @@ two:
   description: MyText
   origin: MyString
   variety: MyString
-  categorie: MyString
+  category: MyString
   quantity: 1

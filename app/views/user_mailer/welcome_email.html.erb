@@ -5,11 +5,7 @@
   </head>
   <body>
     <h1>
-      <% if @user.first_name.present? %>
-      Bienvenue chez Saveurs Saisonnieres, <%= @user.first_name %> !
-      <% else %>
         Bienvenue chez Saveurs Saisonnieres !
-      <% end %>
     </h1>
     <p>
       Félicitations, tu viens de t'inscrire sur Saveurs Saisonnieres avec l'adresse e-mail suivante : <%= @user.email %>.

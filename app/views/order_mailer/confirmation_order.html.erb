@@ -6,11 +6,11 @@
   <body>
     <div>
       <p>
-    <% if @user.first_name.present? %>
-      Bonjour, <%= @user.first_name %> !
-    <% else %>
-      Bonjour !
-    <% end %>
+        <% if @user.first_name.present? %>
+          Bonjour, <%= @user.first_name %> !
+        <% else %>
+          Bonjour !
+        <% end %>
       </p>
 
       <p>
@@ -20,9 +20,15 @@
       <p>
         Détails de votre commande :
         <ul>
-          <li>Votre commande : </li>
+          <li>Numéro de commande : <%= @order.id %></li>
           <li>Montant total : <%= @order.total_price %> €</li>
-          <li>Votre numéro de commande à transmettre pour remise en main propre: <%= @order.id %></li>
+          <li>Produits commandés :</li>
+          <ul>
+            <% @order_items.each do |item| %>
+              <li><%= item.product.name %> - Quantité : <%= item.quantity %> - Prix : <%= item.product.price %> €</li>
+            <% end %>
+          </ul>
+          <li>Votre numéro de commande à transmettre pour remise en main propre : <%= @order.id %></li>
           <li>Pour récupérer votre commande de fruits et légumes frais de proximité : 14, rue des étoiles, 34000 Montpellier</li>
         </ul>
       </p>

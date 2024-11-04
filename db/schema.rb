@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_27_110809) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_04_125824) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -45,7 +45,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_27_110809) do
   create_table "cart_products", force: :cascade do |t|
     t.bigint "cart_id", null: false
     t.bigint "product_id", null: false
-    t.integer "quantity"
+    t.integer "quantity", default: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["cart_id"], name: "index_cart_products_on_cart_id"
@@ -83,6 +83,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_27_110809) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "total_price"
+    t.string "stripe_session_id"
+    t.index ["stripe_session_id"], name: "index_orders_on_stripe_session_id", unique: true
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
@@ -92,18 +94,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_27_110809) do
     t.text "description"
     t.string "origin"
     t.string "variety"
-    t.string "categorie"
+    t.string "category"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "user_carts", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "cart_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["cart_id"], name: "index_user_carts_on_cart_id"
-    t.index ["user_id"], name: "index_user_carts_on_user_id"
+    t.boolean "active", default: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -129,6 +123,4 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_27_110809) do
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
   add_foreign_key "orders", "users"
-  add_foreign_key "user_carts", "carts"
-  add_foreign_key "user_carts", "users"
 end
