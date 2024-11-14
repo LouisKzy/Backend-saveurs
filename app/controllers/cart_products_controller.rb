@@ -9,8 +9,10 @@ class CartProductsController < ApplicationController
     existing_cart_product = cart.cart_products.find_by(product_id: product.id)
   
     if existing_cart_product
-      if existing_cart_product.update(quantity: new_quantity)
-        render json: { message: 'Cart updated successfully', new_quantity: new_quantity }, status: :ok
+      updated_quantity = existing_cart_product.quantity + new_quantity
+  
+      if existing_cart_product.update(quantity: updated_quantity)
+        render json: { message: 'Cart updated successfully', new_quantity: updated_quantity }, status: :ok
       else
         render json: { errors: existing_cart_product.errors.full_messages }, status: :unprocessable_entity
       end
@@ -24,6 +26,7 @@ class CartProductsController < ApplicationController
       end
     end
   end
+  
   
 
   def update
