@@ -26,4 +26,7 @@ Rails.application.routes.draw do
     get '/success', to: 'checkout#success', as: 'checkout_success'
     get '/cancel', to: 'checkout#cancel', as: 'checkout_cancel'
   end
+  namespace :users do
+    post 'tokens/refresh', to: 'tokens#refresh'
+  end
 end

@@ -4,16 +4,22 @@ class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :update, :destroy]
 
   def index
-    if current_user && current_user.admin?
-      products = Product.all
-    else
-      products = Product.all.where(active: true)
-    end
-
+    products = Product.all
+  
     if params[:name].present?
       products = products.where("name ILIKE ?", "%#{params[:name]}%")
     end
-
+  
+    if params[:category].present?
+      products = products.where("category ILIKE ?", "%#{params[:category]}%")
+    end
+  
+    if current_user&.admin?
+      products = products
+    else
+      products = products.where(active: true)
+    end
+  
     render json: products.as_json(methods: :img_url)
   end
 
