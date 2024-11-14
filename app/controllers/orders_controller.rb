@@ -4,7 +4,7 @@ class OrdersController < ApplicationController
   before_action :set_order, only: [:show]
 
   def index
-    @orders = Order.all.includes(order_items: :product) 
+    @orders = Order.all.includes(order_items: :product).order(created_at: :desc)
     render json: @orders.to_json(include: { order_items: { include: :product } })
   end
 
